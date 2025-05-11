@@ -1,0 +1,15 @@
+//IHttpClientFactory => apiye istek atmamızı sağlıyor 
+merkezden yönetiraynı bağlantıları tekrar tekrar kullanılmasını sağlar daha doğrıu perfonmaslı kullanım
+
+
+//HttpClient:başka bir apiye http isteklerini göndermek için kullanılır , her çağrıda yeni bağlantı açar perfonmas sorunu açar 
+//api: farklı sistemlerin birbirleriyle veri alışverişi ypmasını sağlar
+//istemci sunucuya istek atar client=>istmeci
+
+var client=_httpClientFactory.CreateCliwnt(); 
+// httpclientconfigürasyonu dönüyor clientle ilgili temel özellikle
+
+var response = await client.GetAsync("")
+//istwmci istek atıyor
+
+//Http => internetteki cihazların irbirleriyle konuşması
