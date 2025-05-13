@@ -4,6 +4,7 @@ using AcunMedyaAkademiWebApi.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AcunMedyaAkademiWebApi.Migrations
 {
     [DbContext(typeof(WebAPIDbContext))]
-    partial class WebAPIDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250513194119_mig_product_title")]
+    partial class mig_product_title
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

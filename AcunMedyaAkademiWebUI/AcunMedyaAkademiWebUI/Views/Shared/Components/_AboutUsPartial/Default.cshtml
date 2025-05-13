@@ -1,0 +1,33 @@
+﻿@model List<ResultAboutDto>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+@foreach(var item in Model)
+{
+	
+
+<div class="main-slider pattern-overlay">
+	<div class="slider-item">
+		<div class="banner-content">
+				<h2 class="banner-title" style="font-size: 55px;">@item.Title</h2>
+
+			<p>
+			@item.Desciption
+			</p>
+			<div class="btn-wrap">
+				<a href="#" class="btn btn-outline-accent btn-accent-arrow">
+					Daha Fazlası<i class="icon icon-ns-arrow-right"></i>
+				</a>
+			</div>
+		</div><!--banner-content-->
+		<img src="@item.ImageUrl"  style="width:100; height:577px">
+	</div><!--slider-item-->
+
+	
+
+</div><!--slider-->
+}
+
+

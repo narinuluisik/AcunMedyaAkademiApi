@@ -1,0 +1,105 @@
+﻿@model List<ProductWithCategoryDto>
+@{
+    Layout = null;
+}
+
+<section class="bookshelf py-5 my-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="section-header align-center">
+                    <div class="title">
+                        <span>Ürünlerin Bazıları</span>
+                    </div>
+                    <h2 class="section-title">Popüler Kitaplar</h2>
+                </div>
+
+                @{
+                    var categories = Model.Select(x => x.CategoryName).Distinct().ToList();
+                }
+
+                <ul class="tabs">
+                    <li data-tab-target="#all-genre" class="active tab">All Genre</li>
+                    @foreach (var category in categories)
+                    {
+                        <li class="tab" data-tab-target="#@(category?.Replace(" ", "-").ToLower())">@category</li>
+                    }
+                </ul>
+
+                <div class="tab-content">
+                    <!-- Tüm ürünler -->
+                    <div id="all-genre" data-tab-content class="active">
+                        <div class="row">
+                            @foreach (var product in Model)
+                            {
+                                <div class="col-md-3">
+                                    <div class="product-item">
+                                        <figure class="product-style">
+                                            <img src="@product.ImageUrl" alt="@product.ProductName" class="product-item" />
+                                            <button type="button" class="add-to-cart" data-product-tile="add-to-cart">
+                                                Sepete Ekle
+                                            </button>
+                                        </figure>
+                                        <figcaption>
+                                            <h3>@product.Title</h3>
+                                            <div class="item-price">$ @product.Price</div>
+                                        </figcaption>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                    <!-- Kategoriye göre filtreleme -->
+                    @foreach (var category in categories)
+                    {
+                        <div id="@category?.Replace(" ", "-").ToLower()" data-tab-content>
+                            <div class="row">
+                                @foreach (var product in Model.Where(p => p.CategoryName == category))
+                                {
+                                    <div class="col-md-3">
+                                        <div class="product-item">
+                                            <figure class="product-style">
+                                                <img src="@product.ImageUrl" alt="@product.ProductName" class="product-item" style="width:100%; height:300px; object-fit: cover;" />
+
+                                                <button type="button" class="add-to-cart" data-product-tile="add-to-cart">
+                                                    Sepete Ekle
+                                                </button>
+                                            </figure>
+                                            <figcaption>
+                                                <h3>@product.Title</h3>
+                                                <div class="item-price">$ @product.Price</div>
+                                            </figcaption>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
+
+            </div><!--inner-tabs-->
+
+        </div>
+    </div>
+</section>
+
+<!-- JavaScript ile Tab geçişlerini sağlamak -->
+<script>
+    document.querySelectorAll('.tab').forEach(tab => {
+        tab.addEventListener('click', function () {
+            // Tüm tab'leri "active" sınıfından çıkart
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+
+            // Seçilen tab'a "active" sınıfını ekle
+            tab.classList.add('active');
+
+            // Tüm içerikleri gizle
+            document.querySelectorAll('.tab-content > div').forEach(content => content.classList.remove('active'));
+
+            // Seçilen tab'a ait içeriği göster
+            document.querySelector(tab.getAttribute('data-tab-target')).classList.add('active');
+        });
+    });
+</script>

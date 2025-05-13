@@ -1,0 +1,50 @@
+﻿@model List<ResultFeatureDto>
+
+<section id="featured-books" class="py-5 my-5">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="section-header align-center">
+					<div class="title">
+						<span>Öne Çıkan Kitaplar</span>
+					</div>
+					<h2 class="section-title">Öne Çıkanlar</h2>
+				</div>
+
+				<div class="product-list" data-aos="fade-up">
+					<div class="row">
+						@foreach (var item in Model)
+						{
+							<div class="col-md-3 mb-4">
+								<div class="product-item">
+									<figure class="product-style">
+										<img src="@item.ImageUrl" alt="@item.Title" class="product-item" />
+										<button type="button" class="add-to-cart" data-product-tile="add-to-cart">
+											Sepete Ekle
+										</button>
+									</figure>
+									<figcaption>
+										<h3>@item.Title</h3>
+										<span>@item.Name</span>
+										<div class="item-price">@item.Price ₺</div>
+									</figcaption>
+								</div>
+							</div>
+						}
+					</div>
+				</div><!-- product-list -->
+
+			</div><!-- col -->
+		</div><!-- row -->
+
+		<div class="row">
+			<div class="col-md-12">
+				<div class="btn-wrap align-right">
+					<a href="#" class="btn-accent-arrow">
+						Tüm Ürünleri Gör <i class="icon icon-ns-arrow-right"></i>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div><!-- container -->
+</section>
