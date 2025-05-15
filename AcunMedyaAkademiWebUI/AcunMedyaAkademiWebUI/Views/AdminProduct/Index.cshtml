@@ -1,0 +1,54 @@
+﻿@model List<ProductWithCategoryDto>
+
+@{
+    ViewData["Title"] = "Kitaplar";
+    Layout = "~/Views/AdminLayout/_AdminLayout.cshtml";
+}
+<div class="container-fluid py-8">
+    <div class="d-flex justify-content-between align-items-center border-bottom pb-3 mb-4">
+        <h2 class="fw-semibold text-primary mb-0">📚 Kitap Listesi</h2>
+        <a href="/AdminRoom/AddRoom/" class="btn btn-primary btn-sm shadow">
+            ➕ Yeni Kitap Ekle
+        </a>
+    </div>
+  
+
+
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered text-center">
+            <thead class="thead-light">
+                <tr>
+                    <th>#</th>
+                    <th>Kitap Adı</th>
+                    <th>Yazar</th>
+                    <th>Fiyat</th>
+                    <th>Kategori</th>
+                    <th>Kapak</th>
+                    <th>Sil</th>
+                    <th>Güncelle</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.ProductId</td>
+                        <td>@item.ProductName</td>
+                        <td>@item.Title</td>
+                        <td>@item.Price ₺</td>
+                        <td>@item.CategoryName</td>
+                        <td>
+                            <img src="@item.ImageUrl" alt="Kitap Kapak" style="width: 60px; height: 80px; object-fit: cover;" class="rounded shadow-sm" />
+                        </td>
+                        <td>
+                            <a href="/AdminRoom/DeleteRoom/@item.ProductId" class="btn btn-sm btn-outline-danger btn-rounded">Sil</a>
+                        </td>
+                        <td>
+                            <a href="/AdminRoom/UpdateRoom/@item.ProductId" class="btn btn-sm btn-outline-success btn-rounded">Güncelle</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

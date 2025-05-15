@@ -1,0 +1,45 @@
+﻿@model List<ResultLast7ProductDto>
+
+
+<div class="row">
+    <div class="col-md-12  stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <p class="card-title mb-0">Popüler Kitaplar</p>
+                <div class="table-responsive">
+                    <table class="table table-striped table-borderless">
+                        <thead>
+                            <tr>
+                                <th>Kitap</th>
+                                <th>Yazarı</th>
+                                <th>Fiyatı</th>
+                                <th>Durumu</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach(var item in Model)
+                            {
+                                
+                            
+                            <tr>
+                                <td>@item.ProductName</td>
+                                <td >@item.Title</td>
+                                <td class="font-weight-bold">@item.Price</td>
+                              
+                                <td class="font-weight-medium"><div class="badge badge-success">Completed</div></td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-6 mt-3">
+            <canvas id="south-america-chart"></canvas>
+            <div id="south-america-legend"></div>
+        </div>
+    </div>
+
+</div>

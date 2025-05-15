@@ -32,6 +32,7 @@ namespace AcunMedyaAkademiWebApi.Controllers
             {
                 ProductId = p.ProductId,
                 ProductName = p.ProductName,
+                Title = p.Title,
                 Price = p.Price,
                 ImageUrl = p.ImageUrl,
                 CategoryName=p.Category.CategoryName
@@ -110,5 +111,31 @@ namespace AcunMedyaAkademiWebApi.Controllers
             return NoContent();
 
         }
+
+
+
+        [HttpGet("Last7Booking")]
+        public IActionResult Last7Booking(int id)
+        {
+                var values= _context.Products.OrderByDescending(x=>x.ProductId).Take(7).ToList();
+            return Ok(values);
+
+        }
+        [HttpGet("GetProductCountByCategory")]
+        public IActionResult GetProductCountByCategory()
+        {
+            var result = _context.Products
+                .GroupBy(p => p.Category.CategoryName)
+                .Select(g => new
+                {
+                    CategoryName = g.Key,
+                    ProductCount = g.Count()
+                })
+                .ToList();
+
+            return Ok(result);
+        }
+
+
     }
 }

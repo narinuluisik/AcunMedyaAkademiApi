@@ -1,0 +1,48 @@
+﻿@model ProductStatsDto
+
+<div class="col-md-6 grid-margin transparent">
+    <div class="row">
+        <div class="col-md-6 mb-4 stretch-card transparent">
+            <div class="card card-tale" style="height: 200px; width: 100%; border-radius: 10px;">
+                <div class="card-body" style="padding: 20px;">
+                    <p class="mb-4" style="font-size: 18px;">Popüler Kitap</p>
+                    <p class="fs-40 mb-2" style="font-size: 36px;">
+                        7 <!-- Örnek: Son 7 günün toplam kayıt sayısı -->
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4 stretch-card transparent">
+            <div class="card card-dark-blue" style="height: 200px; width: 100%; border-radius: 10px;">
+                <div class="card-body" style="padding: 20px;">
+                    <p class="mb-4" style="font-size: 18px;">Toplam Kitap</p>
+                    <p class="fs-40 mb-2" style="font-size: 36px;">
+                        @Model.TotalProducts
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 mb-4 mb-lg-0 stretch-card transparent">
+            <div class="card card-light-blue" style="height: 200px; width: 100%; border-radius: 10px;">
+                <div class="card-body" style="padding: 20px;">
+                    <p class="mb-4" style="font-size: 18px;">Toplam Yazar</p>
+                    <p class="fs-40 mb-2" style="font-size: 36px;">
+                        @Model.TotalAuthors
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 stretch-card transparent">
+            <div class="card card-light-danger" style="height: 200px; width: 100%; border-radius: 10px;">
+                <div class="card-body" style="padding: 20px;">
+                    <p class="mb-4" style="font-size: 18px;">Toplam Kategori</p>
+                    <p class="fs-40 mb-2" style="font-size: 36px;">
+                        @Model.TotalCategories
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

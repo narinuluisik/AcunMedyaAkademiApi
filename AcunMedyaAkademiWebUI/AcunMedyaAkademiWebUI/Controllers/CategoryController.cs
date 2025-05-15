@@ -26,6 +26,7 @@ namespace AcunMedyaAkademiWebUI.Controllers
                 var values = JsonConvert.DeserializeObject<List<ResultCategoryDto>>(jsondata);
                 return View(values);
             }
+
             return View();
         }
 
