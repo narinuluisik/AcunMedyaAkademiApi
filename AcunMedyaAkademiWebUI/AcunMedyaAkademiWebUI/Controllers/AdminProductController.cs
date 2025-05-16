@@ -1,5 +1,7 @@
-﻿using AcunMedyaAkademiWebUI.DTOs.Product;
+﻿using AcunMedyaAkademiWebUI.DTOs;
+using AcunMedyaAkademiWebUI.DTOs.Product;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 using System.Text;
 
@@ -29,23 +31,104 @@ namespace AcunMedyaAkademiWebUI.Controllers
         }
 
         [HttpGet]
-        public IActionResult AddRoom()
+        public async Task<IActionResult> AddProduct()
         {
+            var client = _httpClientFactory.CreateClient();
+            var response = await client.GetAsync("https://localhost:7082/api/Category");
+
+            if (response.IsSuccessStatusCode)
+            {
+                var jsonData = await response.Content.ReadAsStringAsync();
+                var categories = JsonConvert.DeserializeObject<List<ResultCategoryDto>>(jsonData);
+
+                ViewBag.CategoryList = categories.Select(c => new SelectListItem
+                {
+                    Text = c.CategoryName,
+                    Value = c.CategoryId.ToString()
+                }).ToList();
+            }
+            else
+            {
+                ViewBag.CategoryList = new List<SelectListItem>();
+            }
+
             return View();
         }
-        [HttpPost]
-        public async Task<IActionResult> AddProduct(CreateProductDto createproductDto)
 
+        [HttpPost]
+        public async Task<IActionResult> AddProduct(CreateProductDto createProductDto)
         {
-            var client = _httpClientFactory.CreateClient(); var jsonData = JsonConvert.SerializeObject(createproductDto);
-            StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            var responseMessage = await client.PostAsync("https://localhost:7082/api/Product/", stringContent);
+            if (!ModelState.IsValid)
+            {
+                // Model geçersizse kategori listesini tekrar yükle
+                var client = _httpClientFactory.CreateClient();
+                var response2 = await client.GetAsync("https://localhost:7082/api/Category");
+
+                if (response2.IsSuccessStatusCode)
+                {
+                    var jsonData = await response2.Content.ReadAsStringAsync();
+                    var categories = JsonConvert.DeserializeObject<List<ResultCategoryDto>>(jsonData);
+
+                    ViewBag.CategoryList = categories.Select(c => new SelectListItem
+                    {
+                        Text = c.CategoryName,
+                        Value = c.CategoryId.ToString()
+                    }).ToList();
+                }
+                else
+                {
+                    ViewBag.CategoryList = new List<SelectListItem>();
+                }
+                return View(createProductDto);
+            }
+
+            var client2 = _httpClientFactory.CreateClient();
+            var jsonData2 = JsonConvert.SerializeObject(createProductDto);
+            var stringContent = new StringContent(jsonData2, Encoding.UTF8, "application/json");
+
+            var responseMessage = await client2.PostAsync("https://localhost:7082/api/Product/", stringContent);
+
             if (responseMessage.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index");
             }
-            return View();
+
+            // Başarısızsa kategori listesini tekrar yükle
+            var response = await client2.GetAsync("https://localhost:7082/api/Category");
+            if (response.IsSuccessStatusCode)
+            {
+                var jsonData = await response.Content.ReadAsStringAsync();
+                var categories = JsonConvert.DeserializeObject<List<ResultCategoryDto>>(jsonData);
+
+                ViewBag.CategoryList = categories.Select(c => new SelectListItem
+                {
+                    Text = c.CategoryName,
+                    Value = c.CategoryId.ToString()
+                }).ToList();
+            }
+            else
+            {
+                ViewBag.CategoryList = new List<SelectListItem>();
+            }
+
+            ModelState.AddModelError("", "Ürün eklenirken bir hata oluştu.");
+            return View(createProductDto);
         }
+
+
+        //[HttpPost]
+        //public async Task<IActionResult> AddProduct(CreateProductDto createproductDto)
+
+        //{
+        //    var client = _httpClientFactory.CreateClient(); var jsonData = JsonConvert.SerializeObject(createproductDto);
+        //    StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
+        //    var responseMessage = await client.PostAsync("https://localhost:7082/api/Product/", stringContent);
+        //    if (responseMessage.IsSuccessStatusCode)
+        //    {
+        //        return RedirectToAction("Index");
+        //    }
+        //    return View();
+        //}
         public async Task<IActionResult> DeleteProduct(int id)
         {
 

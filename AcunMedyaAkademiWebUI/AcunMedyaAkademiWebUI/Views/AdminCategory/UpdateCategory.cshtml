@@ -1,0 +1,31 @@
+﻿@model AcunMedyaAkademiWebUI.DTOs.UpdateCategoryDto
+@{
+    ViewData["Title"] = "UpdateCategory";
+    Layout = "~/Views/AdminLayout/_AdminLayout.cshtml";
+}
+
+
+
+
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h2 class="mb-4 text-primary">📝 Yeni Kategori Ekle</h2>
+            <form asp-action="UpdateCategory" method="post">
+                <input type="hidden" asp-for="CategoryId" />
+                <div class="mb-3">
+                    <label asp-for="CategoryName" class="form-label">Kategori İsmi</label>
+                    <input asp-for="CategoryName" class="form-control" />
+
+                </div>
+
+                <button type="submit" class="btn btn-success">
+                    <i class="ti-plus"></i> Kategori Güncelle
+                </button>
+                <a href="/AdminCategory/Index" class="btn btn-secondary ms-2">
+                    <i class="ti-arrow-left"></i> Geri Dön
+                </a>
+            </form>
+        </div>
+    </div>
+</div>

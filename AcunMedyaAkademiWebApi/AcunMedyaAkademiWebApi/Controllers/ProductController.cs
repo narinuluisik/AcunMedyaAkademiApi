@@ -60,6 +60,7 @@ namespace AcunMedyaAkademiWebApi.Controllers
             {
                 ProductName =productCreateDto.ProductName,
                 ImageUrl =productCreateDto.ImageUrl,
+                Title = productCreateDto.Title,
                 Price =productCreateDto.Price,
                 CategoryId = productCreateDto.CategoryId,
             };
